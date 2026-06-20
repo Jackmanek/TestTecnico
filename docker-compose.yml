@@ -1,0 +1,54 @@
+services:
+  laravel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REPO_URL=https://github.com/Jackmanek/incidenciasApp.git
+    depends_on:
+      - db
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gestorincidencias
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: passw0rd
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+  
+  node:
+    image: node:latest
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - laravel
+    command: sh -c "npm install && npm run build"
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - laravel
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+networks:
+  app-network:
+    driver: bridge
