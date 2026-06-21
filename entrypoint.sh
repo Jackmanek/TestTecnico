@@ -1,12 +1,19 @@
 #!/bin/sh
 
+echo "Esperando a MySQL..."
+
+until nc -z db 3306
+do
+    sleep 2
+done
+
+echo "MySQL disponible"
 
 composer install
 
 if [ -z "$(php artisan key:generate --show 2>/dev/null)" ]; then
     php artisan key:generate
 fi
-composer require livewire/livewire
 
 
 php artisan migrate:refresh --force

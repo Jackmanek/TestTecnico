@@ -13,7 +13,7 @@
 - El repositorio lo he hecho publico por si queréis descargarlo
 	- https://github.com/Jackmanek/incidenciasApp.git 
 
-# Si se prueba el repositorio en Desarrollo, hay que realizar los siguientes comando;
+## Si se prueba el repositorio en Desarrollo, hay que realizar los siguientes comando;
 	- composer update o composer install
 	- php artisan key:generate
 	- composer require livewire/livewire (solo si al hacer update no se instalan las dependencias)
@@ -23,11 +23,11 @@
 	# Para comprobar he creado varios Usuarios cono roles distintos
 	- php artisan db:seed
 	
-# Los métodos en desarrollo funciona perfectamente, he realizado la relación y las utilizo a la hora de asignar un usuario soporte a un incidencia, se puede comprobar en los modelos
+## Los métodos en desarrollo funciona perfectamente, he realizado la relación y las utilizo a la hora de asignar un usuario soporte a un incidencia, se puede comprobar en los modelos
 
-# En el método store, a la hora de crear también hay una relación, esta da un fallo de no definido, pero existe realmente y realiza el sabe() como se espera.
+## En el método store, a la hora de crear también hay una relación, esta da un fallo de no definido, pero existe realmente y realiza el sabe() como se espera.
 
-# Probar Roles
+## Probar Roles
 - Administrador
     - admin@example.com
     - password
@@ -35,7 +35,7 @@
     - jose@example.com
     - password
 
-# TEST Hay dos métodos que no pasan el test
+## TEST Hay dos métodos que no pasan el test
 	- ambos son a la hora de redireccionar;
 	- El primero es porque quería utilizar el modal y este me obliga a no utilizar un redirect(). 
 	- Y el segundo es en el momento de acceder a la APi autorizada, el fallo debería ser un 401, pero me lanza un 301 por lo mismo hace un redirect y no gestiona el error correctamente.
