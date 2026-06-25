@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -19,12 +19,11 @@ WORKDIR /var/www/html
 
 COPY .env /var/www/html/.env
 
-RUN composer install
-RUN composer require livewire/livewire
-RUN npm install && npm run build
-RUN npm install vite --save-dev
-RUN npm install tailwindcss
-RUN npx tailwindcss init
+RUN composer install --no-interaction --no-dev --optimize-autoloader
+
+RUN npm install
+RUN npm run build
+
 RUN chown -R www-data:www-data /var/www/html/ /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/ /var/www/html/bootstrap/cache
 
